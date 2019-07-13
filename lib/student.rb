@@ -79,14 +79,13 @@ class Student
       end.first
   end
   
-  def self.students_in_grade_X
+  def self.students_in_grade_X(grade)
     sql = <<-SQL
       SELECT *
       FROM students
-      WHERE grade = 10 
-      ORDER BY students.id LIMIT ?
+      WHERE grade = ? 
     SQL
-    DB[:conn].execute(sql, number).map do |row|
+    DB[:conn].execute(sql, grade).map do |row|
       self.new_from_db(row)
       end
   end
